@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Fufufafa Quotes</h1>
+
+  <input
+    type="search"
+    placeholder="Search Fufufafa Quotes"
+    (search)="onSearch($event)"
+  />
+
+  <div class="quote-list">
+    <app-quote *ngFor="let quote of quotes()" [quote]="quote"></app-quote>
+  </div>
+</div>
