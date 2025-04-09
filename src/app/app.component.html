@@ -8,6 +8,13 @@
   />
 
   <div class="quote-list">
+    <ng-container *ngIf="isLoading()">
+      <p>Loading...</p>
+    </ng-container>
+    @if (quotes().length == 0 && searchTerm() != '') {
+    <p>No quotes found</p>
+    } @else {
     <app-quote *ngFor="let quote of quotes()" [quote]="quote"></app-quote>
+    }
   </div>
 </div>

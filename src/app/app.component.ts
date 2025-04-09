@@ -13,11 +13,15 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   private readonly quoteService = inject(QuoteService);
+  readonly searchTerm = signal('');
   readonly quotes = signal<Quote[]>([]);
+  readonly isLoading = signal(false);
 
-  onSearch(e: Event) {
-    console.log('search', e);
-    const searchTerm = (e.target as HTMLInputElement).value;
-    this.quotes.set(this.quoteService.search(searchTerm));
+  async onSearch(e: Event) {
+    this.isLoading.set(true);
+    this.searchTerm.set((e.target as HTMLInputElement).value);
+    const result = await this.quoteService.search(this.searchTerm());
+    this.quotes.set(result);
+    this.isLoading.set(false);
   }
 }
